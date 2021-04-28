@@ -18,6 +18,10 @@ __published:	// IDE-managed Components
         TTimer *TimerBall;
         TImage *PaddleLeft;
         TImage *PaddleRight;
+        TTimer *TimerPaddleLeftUp;
+        TTimer *TimerPaddleLeftDown;
+        TTimer *TimerPaddleRightUp;
+        TTimer *TimerPaddleRightDown;
         void __fastcall TimerBallTimer(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
