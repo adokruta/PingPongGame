@@ -16,6 +16,8 @@ __published:	// IDE-managed Components
         TShape *Background;
         TImage *Ball;
         TTimer *TimerBall;
+        TImage *PaddleLeft;
+        TImage *PaddleRight;
         void __fastcall TimerBallTimer(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
