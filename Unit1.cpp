@@ -21,6 +21,11 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 void __fastcall TForm1::TimerBallTimer(TObject *Sender)
 {
         Ball->Left += x;
-        Ball->Top += y;        
+        Ball->Top += y;
+
+        // bounce from above
+        if(Ball->Top <= Background->Top) y = -y;
+        // bounce from below
+        if(Ball->Top + Ball->Height >= Background->Height) y =-y;
 }
 //---------------------------------------------------------------------------
