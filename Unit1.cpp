@@ -9,7 +9,8 @@
 #pragma resource "*.dfm"
 TForm1 *Form1;
 
-int x = -8, y = -8; 
+int x = -8, y = -8;
+int changeDirection = 4, changeInterval = 4;
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -39,15 +40,32 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 Ball->Top + Ball->Height/2 <= PaddleLeft->Top + PaddleLeft->Height &&
                 Ball->Left <= PaddleLeft->Left + PaddleLeft->Width)
         {
-                if(x < 0) x = -x;
+                if(x < 0) x = 8;
+                TimerBall->Interval = 20;
+
+                if( Ball->Top + Ball->Height/2 >= PaddleLeft->Top + 60 &&
+                    Ball->Top + Ball->Height/2 <= PaddleLeft->Top + 90)
+                    {
+                        x += changeDirection;
+                        TimerBall->Interval -= changeInterval;
+                    }
         }
         // bounce from right paddle
         else if(Ball->Top + Ball->Height/2 >= PaddleRight->Top &&
                  Ball->Top + Ball->Height/2 <= PaddleRight->Top + PaddleRight->Height &&
                  Ball->Left + Ball->Width >= PaddleRight->Left)
         {
-                if(x > 0) x = -x;
+                if(x > 0) x = -8;
+                TimerBall->Interval = 20;
+
+                if( Ball->Top + Ball->Height/2 >= PaddleRight->Top + 60 &&
+                    Ball->Top + Ball->Height/2 <= PaddleRight->Top + 90)
+                    {
+                        x -= changeDirection;
+                        TimerBall->Interval -= changeInterval;
+                    }
         }
+
 
 
 }
