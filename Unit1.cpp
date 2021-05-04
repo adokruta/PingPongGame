@@ -27,6 +27,29 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         if(Ball->Top <= Background->Top) y = -y;
         // bounce from below
         if(Ball->Top + Ball->Height >= Background->Height) y =-y;
+        // crush conditions
+        if(Ball->Left + Ball->Width <= PaddleLeft->Left ||
+           Ball->Left >= PaddleRight->Left+PaddleRight->Width)
+        {
+                TimerBall->Enabled = false;
+                Ball->Visible = false;
+        }
+        //bounce from left paddle
+        else if(Ball->Top + Ball->Height/2 >= PaddleLeft->Top &&
+                Ball->Top + Ball->Height/2 <= PaddleLeft->Top + PaddleLeft->Height &&
+                Ball->Left <= PaddleLeft->Left + PaddleLeft->Width)
+        {
+                if(x < 0) x = -x;
+        }
+        // bounce from right paddle
+        else if(Ball->Top + Ball->Height/2 >= PaddleRight->Top &&
+                 Ball->Top + Ball->Height/2 <= PaddleRight->Top + PaddleRight->Height &&
+                 Ball->Left + Ball->Width >= PaddleRight->Left)
+        {
+                if(x > 0) x = -x;
+        }
+
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormKeyDown(TObject *Sender, WORD &Key,
