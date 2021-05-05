@@ -11,6 +11,7 @@ TForm1 *Form1;
 
 int x = -8, y = -8;
 int changeDirection = 4, changeInterval = 4;
+int numberOfBounces = 0, gameSpeed = 20;
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -23,6 +24,9 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
 {
         Ball->Left += x;
         Ball->Top += y;
+        TimerBall->Interval = gameSpeed;
+
+
 
         // bounce from above
         if(Ball->Top <= Background->Top) y = -y;
@@ -41,7 +45,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 Ball->Left <= PaddleLeft->Left + PaddleLeft->Width)
         {
                 if(x < 0) x = 8;
-                TimerBall->Interval = 20;
+                TimerBall->Interval = gameSpeed;
 
                 if( Ball->Top + Ball->Height/2 >= PaddleLeft->Top + 60 &&
                     Ball->Top + Ball->Height/2 <= PaddleLeft->Top + 90)
@@ -49,6 +53,9 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                         x += changeDirection;
                         TimerBall->Interval -= changeInterval;
                     }
+
+                numberOfBounces ++;
+                if(numberOfBounces%5 == 0 && TimerBall->Interval > 1 ) gameSpeed --;
         }
         // bounce from right paddle
         else if(Ball->Top + Ball->Height/2 >= PaddleRight->Top &&
@@ -56,7 +63,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                  Ball->Left + Ball->Width >= PaddleRight->Left)
         {
                 if(x > 0) x = -8;
-                TimerBall->Interval = 20;
+                TimerBall->Interval = gameSpeed;
 
                 if( Ball->Top + Ball->Height/2 >= PaddleRight->Top + 60 &&
                     Ball->Top + Ball->Height/2 <= PaddleRight->Top + 90)
@@ -64,7 +71,12 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                         x -= changeDirection;
                         TimerBall->Interval -= changeInterval;
                     }
+
+                 numberOfBounces ++;
+                 if(numberOfBounces%5 == 0 && TimerBall->Interval > 1 ) gameSpeed --;
         }
+
+
 
 
 
