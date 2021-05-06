@@ -12,6 +12,7 @@ TForm1 *Form1;
 int x = -8, y = -8;
 int changeDirection = 4, changeInterval = 4;
 int numberOfBounces = 0, gameSpeed = 20;
+int leftPlayerPoints = 0, rightPlayerPoints = 0;
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -26,7 +27,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         Ball->Top += y;
         TimerBall->Interval = gameSpeed;
 
-
+        AnsiString nrOfBounces, leftPP, rightPP;
 
         // bounce from above
         if(Ball->Top <= Background->Top) y = -y;
@@ -36,9 +37,34 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         if(Ball->Left + Ball->Width <= PaddleLeft->Left ||
            Ball->Left >= PaddleRight->Left+PaddleRight->Width)
         {
+                if( Ball->Left + Ball->Width <= PaddleLeft->Left)
+                {
+                        rightPlayerPoints++;
+                        LabelPointInformation->Caption = "Punkt dla gracza prawego >";
+                }
+                else
+                {
+                        leftPlayerPoints++;
+                        LabelPointInformation->Caption = "< Punkt dla gracza lewego";
+                }
+
                 TimerBall->Enabled = false;
                 Ball->Visible = false;
                 ButtonNewGame->Visible = true;
+                ButtonNextRound->Visible = true;
+
+                nrOfBounces = IntToStr(numberOfBounces);
+                leftPP = IntToStr(leftPlayerPoints);
+                rightPP = IntToStr(rightPlayerPoints);
+
+                LabelNumberOfBounces->Caption = "Liczba odbic: " + nrOfBounces;
+                LabelNumberOfBounces->Visible = true;
+
+                LabelPunctation->Caption = leftPP + ":" + rightPP;
+                LabelPunctation->Visible = true;
+
+                LabelPointInformation->Visible = true;
+
         }
         //bounce from left paddle
         else if(Ball->Top + Ball->Height/2 >= PaddleLeft->Top &&
@@ -130,7 +156,37 @@ void __fastcall TForm1::ButtonNewGameClick(TObject *Sender)
          Ball->Visible = true;
          TimerBall->Enabled = true;
          ButtonNewGame->Visible = false;
-         Label1->Visible = false; 
+         ButtonNextRound->Visible = false;
+         Label1->Visible = false;
+         LabelNumberOfBounces->Visible = false;
+         LabelPunctation->Visible = false;
+         LabelPointInformation->Visible = false;
+
+         leftPlayerPoints = 0;
+         rightPlayerPoints = 0;
+         numberOfBounces = 0;
+         gameSpeed = 20;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ButtonNextRoundClick(TObject *Sender)
+{
+         x = -8;
+         y = -8;
+         Ball->Left = 700;
+         Ball->Top = 300;
+         Ball->Visible = true;
+         TimerBall->Enabled = true;
+         ButtonNewGame->Visible = false;
+         ButtonNextRound->Visible = false;
+         Label1->Visible = false;
+         LabelNumberOfBounces->Visible = false;
+         LabelPunctation->Visible = false;
+         LabelPointInformation->Visible = false;
+
+         numberOfBounces = 0;
+         gameSpeed = 20;
 }
 //---------------------------------------------------------------------------
 
