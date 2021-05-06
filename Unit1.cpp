@@ -38,6 +38,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         {
                 TimerBall->Enabled = false;
                 Ball->Visible = false;
+                ButtonNewGame->Visible = true;
         }
         //bounce from left paddle
         else if(Ball->Top + Ball->Height/2 >= PaddleLeft->Top &&
@@ -120,3 +121,16 @@ void __fastcall TForm1::TimerPaddleRightUpTimer(TObject *Sender)
         if(PaddleRight->Top > 10)PaddleRight->Top -= 10;
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::ButtonNewGameClick(TObject *Sender)
+{
+         x = -8;
+         y = -8;
+         Ball->Left = 700;
+         Ball->Top = 300;
+         Ball->Visible = true;
+         TimerBall->Enabled = true;
+         ButtonNewGame->Visible = false;
+         Label1->Visible = false; 
+}
+//---------------------------------------------------------------------------
+
