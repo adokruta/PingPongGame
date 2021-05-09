@@ -57,7 +57,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 leftPP = IntToStr(leftPlayerPoints);
                 rightPP = IntToStr(rightPlayerPoints);
 
-                LabelNumberOfBounces->Caption = "Liczba odbic: " + nrOfBounces;
+                LabelNumberOfBounces->Caption = "Liczba odbiæ: " + nrOfBounces;
                 LabelNumberOfBounces->Visible = true;
 
                 LabelPunctation->Caption = leftPP + ":" + rightPP;
@@ -78,7 +78,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                     Ball->Top + Ball->Height/2 <= PaddleLeft->Top + 90)
                     {
                         x += changeDirection;
-                        TimerBall->Interval -= changeInterval;
+                        //TimerBall->Interval -= changeInterval;
                     }
 
                 numberOfBounces ++;
@@ -96,16 +96,12 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                     Ball->Top + Ball->Height/2 <= PaddleRight->Top + 90)
                     {
                         x -= changeDirection;
-                        TimerBall->Interval -= changeInterval;
+                        //TimerBall->Interval -= changeInterval;
                     }
 
                  numberOfBounces ++;
                  if(numberOfBounces%5 == 0 && TimerBall->Interval > 1 ) gameSpeed --;
         }
-
-
-
-
 
 }
 //---------------------------------------------------------------------------
@@ -151,9 +147,15 @@ void __fastcall TForm1::ButtonNewGameClick(TObject *Sender)
 {
          x = -8;
          y = -8;
-         Ball->Left = 700;
-         Ball->Top = 300;
+         Ball->Left = Background->Left+Background->Width/2;
+         Ball->Top = Background->Height/2;
          Ball->Visible = true;
+
+         PaddleLeft->Left = Background->Left + 40;;
+         PaddleLeft->Top = Background->Height/2 - 75;
+         PaddleRight->Left = Background->Width - 60;
+         PaddleRight->Top = Background->Height/2 - 75;
+
          TimerBall->Enabled = true;
          ButtonNewGame->Visible = false;
          ButtonNextRound->Visible = false;
@@ -167,6 +169,8 @@ void __fastcall TForm1::ButtonNewGameClick(TObject *Sender)
          numberOfBounces = 0;
          gameSpeed = 20;
 
+
+
 }
 //---------------------------------------------------------------------------
 
@@ -174,9 +178,15 @@ void __fastcall TForm1::ButtonNextRoundClick(TObject *Sender)
 {
          x = -8;
          y = -8;
-         Ball->Left = 700;
-         Ball->Top = 300;
+         Ball->Left = Background->Left+Background->Width/2;
+         Ball->Top = Background->Height/2;
          Ball->Visible = true;
+
+         PaddleLeft->Left = Background->Left + 40;;
+         PaddleLeft->Top = Background->Height/2 - 75;
+         PaddleRight->Left = Background->Width - 60;
+         PaddleRight->Top = Background->Height/2 - 75;
+
          TimerBall->Enabled = true;
          ButtonNewGame->Visible = false;
          ButtonNextRound->Visible = false;
