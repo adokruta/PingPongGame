@@ -13,6 +13,36 @@ int x = -8, y = -8;
 int changeDirection = 4, changeInterval = 4;
 int numberOfBounces = 0, gameSpeed = 20;
 int leftPlayerPoints = 0, rightPlayerPoints = 0;
+
+void setTheInitialConditions (TImage *Ball, TShape *Background, TImage *PaddleLeft, TImage *PaddleRight,
+                              TTimer *TimerBall, TButton * ButtonNewGame, TButton * ButtonNextRound,
+                              TLabel *Label1, TLabel *LabelNumberOfBounces, TLabel *LabelPunctation,
+                              TLabel *LabelPointInformation)
+{
+        x = -8;
+        y = -8;
+        Ball->Left = Background->Left+Background->Width/2;
+        Ball->Top = Background->Height/2;
+        Ball->Visible = true;
+
+        PaddleLeft->Left = Background->Left + 40;;
+        PaddleLeft->Top = Background->Height/2 - 75;
+        PaddleRight->Left = Background->Width - 60;
+        PaddleRight->Top = Background->Height/2 - 75;
+
+        TimerBall->Enabled = true;
+        ButtonNewGame->Visible = false;
+        ButtonNextRound->Visible = false;
+        Label1->Visible = false;
+        LabelNumberOfBounces->Visible = false;
+        LabelPunctation->Visible = false;
+        LabelPointInformation->Visible = false;
+
+        numberOfBounces = 0;
+        gameSpeed = 20;
+}
+
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -125,7 +155,7 @@ void __fastcall TForm1::FormKeyUp(TObject *Sender, WORD &Key,
 //---------------------------------------------------------------------------
 void __fastcall TForm1::TimerPaddleLeftUpTimer(TObject *Sender)
 {
-        if(PaddleLeft->Top > 10) PaddleLeft->Top -= 10;        
+        if(PaddleLeft->Top > 10) PaddleLeft->Top -= 10;
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::TimerPaddleLeftDownTimer(TObject *Sender)
@@ -145,58 +175,32 @@ void __fastcall TForm1::TimerPaddleRightUpTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonNewGameClick(TObject *Sender)
 {
-         x = -8;
-         y = -8;
-         Ball->Left = Background->Left+Background->Width/2;
-         Ball->Top = Background->Height/2;
-         Ball->Visible = true;
-
-         PaddleLeft->Left = Background->Left + 40;;
-         PaddleLeft->Top = Background->Height/2 - 75;
-         PaddleRight->Left = Background->Width - 60;
-         PaddleRight->Top = Background->Height/2 - 75;
-
-         TimerBall->Enabled = true;
-         ButtonNewGame->Visible = false;
-         ButtonNextRound->Visible = false;
-         Label1->Visible = false;
-         LabelNumberOfBounces->Visible = false;
-         LabelPunctation->Visible = false;
-         LabelPointInformation->Visible = false;
-
-         leftPlayerPoints = 0;
-         rightPlayerPoints = 0;
-         numberOfBounces = 0;
-         gameSpeed = 20;
-
-
-
+        if(leftPlayerPoints == 0 && rightPlayerPoints == 0)
+                {
+                        setTheInitialConditions(Ball, Background, PaddleLeft, PaddleRight, TimerBall,
+                                                ButtonNewGame, ButtonNextRound, Label1, LabelNumberOfBounces,
+                                                LabelPunctation, LabelPointInformation);
+                }
+        else
+                {
+                        if(Application->MessageBox("Czy na pewno chcesz zacz¹æ od nowa?" , "PotwierdŸ",
+                           MB_YESNO | MB_ICONQUESTION) == IDYES)
+                                {
+                                        setTheInitialConditions(Ball, Background, PaddleLeft, PaddleRight, TimerBall,
+                                                                ButtonNewGame, ButtonNextRound, Label1, LabelNumberOfBounces,
+                                                                LabelPunctation, LabelPointInformation);
+                                        leftPlayerPoints = 0;
+                                        rightPlayerPoints = 0;
+                                }
+                }
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::ButtonNextRoundClick(TObject *Sender)
 {
-         x = -8;
-         y = -8;
-         Ball->Left = Background->Left+Background->Width/2;
-         Ball->Top = Background->Height/2;
-         Ball->Visible = true;
-
-         PaddleLeft->Left = Background->Left + 40;;
-         PaddleLeft->Top = Background->Height/2 - 75;
-         PaddleRight->Left = Background->Width - 60;
-         PaddleRight->Top = Background->Height/2 - 75;
-
-         TimerBall->Enabled = true;
-         ButtonNewGame->Visible = false;
-         ButtonNextRound->Visible = false;
-         Label1->Visible = false;
-         LabelNumberOfBounces->Visible = false;
-         LabelPunctation->Visible = false;
-         LabelPointInformation->Visible = false;
-
-         numberOfBounces = 0;
-         gameSpeed = 20;
+        setTheInitialConditions(Ball, Background, PaddleLeft, PaddleRight, TimerBall,
+                                ButtonNewGame, ButtonNextRound, Label1, LabelNumberOfBounces,
+                                LabelPunctation, LabelPointInformation);
 }
 //---------------------------------------------------------------------------
 
