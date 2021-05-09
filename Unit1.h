@@ -39,6 +39,7 @@ __published:	// IDE-managed Components
         void __fastcall TimerPaddleRightUpTimer(TObject *Sender);
         void __fastcall ButtonNewGameClick(TObject *Sender);
         void __fastcall ButtonNextRoundClick(TObject *Sender);
+        void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);

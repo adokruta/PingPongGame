@@ -204,3 +204,16 @@ void __fastcall TForm1::ButtonNextRoundClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+        ShowMessage("Witaj w grze PingPong.\n\n"
+                    "Lewy gracz steruje wciskaj¹c klawisze A oraz Z.\n"
+                    "Prawy gracz steruje wciskaj¹c strza³ki do gówy i w dó³.\n\n"
+                    "Dla urozmaicenia zabawy:\n"
+                    "Kiedy odbijesz pi³kê na œrodku paletki, wówczas zmienisz jej k¹t odbicia i pi³ka przyszpieszy.\n"
+                    "Im d³u¿ej odbijasz, tym pi³ka szybciej siê przemieszcza.\n\n"
+                    "Powodzenia!") ;
+
+}
+//---------------------------------------------------------------------------
+
